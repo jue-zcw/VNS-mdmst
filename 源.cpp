@@ -83,9 +83,21 @@ int Kruskal(ALGraph G, int dnum[], int best_solution[]) {
 		T[0] = dNode[j];
 		VNS(G,p, dNode, used,count,maxcount,dNodenum, best_solution,T);
 	}
-	cout << "度约束最小生成树为" << endl;
+	cout << "度约束最小生成树中的内部节点：" << endl;
 	for (int k = 0; k < dNodenum; k++) {
-		cout << best_solution[k] <<"->";
+		cout << best_solution[k] << "-";
+	}
+	cout << endl;
+	cout << "度约束最小生成树中的内部节点与叶子的边" << endl;
+	for(int m=0;m<dNodenum;m++){
+		ArcNode* r;
+		r = G.g[best_solution[m]].firstarc;
+		while (r != NULL) {
+			if (dnum[r->adjvex] == 1) {
+				cout << best_solution[m] << "-" << r->adjvex << endl;
+			}
+			r = r->nextarc;
+		}
 	}
 	return 0;
 }
@@ -126,7 +138,7 @@ void ini_gragh(ALGraph& G) { //创建邻接表
 	}
 }
 /*
-测试：
+论文图1的测试用例：
 10 9
 0 2 
 1 4
